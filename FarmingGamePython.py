@@ -31,7 +31,7 @@ if wantToStart == "y":
             print(" 'a' to move to the left")
             print(" 'd' to move to the right ")
             print(" 'c' to collect plants")
-            print(" 'z' to check coins ")
+            print(" 'z' to check Coins ")
             print(" 's' to save")
             print(" 'o' to open")
             print(" 'exit' to exit")
@@ -39,7 +39,7 @@ if wantToStart == "y":
             print(" 'a' to move to the left")
             print(" 'd' to move to the right ")
             print(" 'c' to collect plants")
-            print(" 'z' to check coins ")
+            print(" 'z' to check Coins ")
             print(" 's' to save")
             print(" 'o' to open")
             print(" 'exit' to exit")
@@ -56,13 +56,17 @@ if wantToStart == "y":
 #operations
         if Operation == "c":
             if WhatFocused == 0:
-                if flower1Grow == 50:
-                    flower1Grow=flower1Grow-49
-                    Coins=Coins+1
+                if int(flower1Grow) >= 50:
+                    flower1Grow=int(flower1Grow)
+                    flower1Grow=int(flower1Grow)-50
+                    Coins=int(Coins)
+                    Coins=int(Coins)+1
             elif WhatFocused ==1:
-                if flower2Grow == 50:
-                    flower2Grow=flower2Grow-39
-                    Coins=Coins+1
+                if int(flower2Grow) >= 50:
+                    flower2Grow=int(flower2Grow)
+                    flower2Grow=int(flower2Grow)-50
+                    Coins=int(Coins)
+                    Coins=int(Coins)+1
             else:
                 print("YOU ARE NOT FOCUSING FLOWER")
         if Operation == "z":
@@ -76,8 +80,11 @@ if wantToStart == "y":
             FileName=input("how you want you save to be called?: ")
             f = open(FileName, "a")
             f.write(str(Coins))
+            f.write("\n")
             f.write(str(flower1Grow))
+            f.write("\n")
             f.write(str(flower2Grow))
+            f.write("\n")
             f.close()         
         if Operation == "o":
             FileNameOpen=input("name of the save: ")
@@ -107,9 +114,9 @@ if wantToStart == "y":
             print("")            
             print("this feature is not added")
 #grow           
-        if flower1Grow<50:
+        if int(flower1Grow)<50:
             flower1Grow=flower1Grow+1
-        if flower2Grow<50:
+        if int(flower2Grow)<50:
             flower2Grow=flower2Grow+1
 #what Focused
         print("")
