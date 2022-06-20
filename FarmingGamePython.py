@@ -5,6 +5,8 @@ flower1Grow=1
 flower2Grow=1
 Coins=0
 
+
+
 print("'Help' for help")
 
 if wantToStart == "y":
@@ -13,23 +15,34 @@ if wantToStart == "y":
         for i in range(10):
             print("")
         Operation=input("your opreation: ")
+
 # 0 = flower1
 # 1 = flower2
-# 2 = paid flower
 # not added:
+# 2 = Fancy flower3
 # 3 = shop
 # 4 = sleep 
 
 
 
 
-
+#Help
         if Operation == "Help":
-            print("a(left)d(right) for movement ")
-            print("'c' to collect plants")
-            print("'z' to check coins ")
-            print(" s to save")
-            print(" o to open")
+            print(" 'a' to move to the left")
+            print(" 'd' to move to the right ")
+            print(" 'c' to collect plants")
+            print(" 'z' to check coins ")
+            print(" 's' to save")
+            print(" 'o' to open")
+            print(" 'exit' to exit")
+        if Operation == "help":
+            print(" 'a' to move to the left")
+            print(" 'd' to move to the right ")
+            print(" 'c' to collect plants")
+            print(" 'z' to check coins ")
+            print(" 's' to save")
+            print(" 'o' to open")
+            print(" 'exit' to exit")
 #movement       
         if Operation == "d":
             if WhatFocused < 4:
@@ -44,48 +57,55 @@ if wantToStart == "y":
         if Operation == "c":
             if WhatFocused == 0:
                 if flower1Grow == 50:
-                    flower1Grow=1
+                    flower1Grow=flower1Grow-49
                     Coins=Coins+1
             elif WhatFocused ==1:
                 if flower2Grow == 50:
-                    flower2Grow=1
+                    flower2Grow=flower2Grow-39
                     Coins=Coins+1
             else:
                 print("YOU ARE NOT FOCUSING FLOWER")
         if Operation == "z":
-                print("Coins Count:",Coins)
-                
+            print("")
+            print("Coins Count:",Coins)
+        if Operation == "exit":
+            exit()
+#world management        
+        
         if Operation == "s":
             FileName=input("how you want you save to be called?: ")
             f = open(FileName, "a")
             f.write(str(Coins))
+            f.write(str(flower1Grow))
+            f.write(str(flower2Grow))
             f.close()         
         if Operation == "o":
             FileNameOpen=input("name of the save: ")
             f = open(FileNameOpen)
             Coins=f.readline()
-            print(Coins)          
+            flower1Grow=f.readline()
+            flower2Grow=f.readline()         
 #focus
         if WhatFocused == 0:
             print("")
-            print("you are focusing flower")
+            print("First flower")
             print("flower grow:",flower1Grow)
         
         if WhatFocused == 1:
             print("")
-            print("you are focusing flower")
+            print("Second flower")
             print("flower grow:",flower2Grow)
         if WhatFocused == 2:
             print("")
-            print("you are focusing flower that is blocked rn") 
+            print("Fancy third flower/not added yet") 
         
         if WhatFocused == 3:
             print("")
-            print("this feature is not added YET")
+            print("this feature is not added")
         
         if WhatFocused == 4:
             print("")            
-            print("this feature is not added YET")
+            print("this feature is not added")
 #grow           
         if flower1Grow<50:
             flower1Grow=flower1Grow+1
@@ -95,8 +115,9 @@ if wantToStart == "y":
         print("")
         print("Focuse", WhatFocused)
 
-
+#game management
 elif wantToStart == "n":
     print("...")
+    exit()
 else:
     print("WRONG OPERATION!!!")
