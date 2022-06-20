@@ -14,7 +14,7 @@ if wantToStart == "y":
     while True:
         for i in range(10):
             print("")
-        Operation=input("your opreation: ")
+        Operation=input("your operation: ")
 
 # 0 = flower1
 # 1 = flower2
@@ -123,7 +123,7 @@ if wantToStart == "y":
             
 #what Focused
         print("")
-        print("Focuse", WhatFocused)
+        print("Focused", WhatFocused)
 
 #game management
 elif wantToStart == "n":
