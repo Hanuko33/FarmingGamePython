@@ -1,2 +1,4 @@
 #!/bin/bash
+python3 FarmingGameMusic.py &
 python3 FarmingGamePython.py
+killall python3

@@ -1,5 +1,6 @@
 from time import *
 
+
 print("Let's start!")
 WhatFocused=0
 wantToStart=input("do you want to start y/n: ")
@@ -10,6 +11,8 @@ power=100
 
 
 print("'Help' for help")
+
+
 
 if wantToStart == "y":
 
