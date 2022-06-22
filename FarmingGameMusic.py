@@ -1,6 +1,6 @@
 from playsound import *
-playsound('music.wav')
-playsound('music.wav')
-playsound('music.wav')
-playsound('music.wav')
-playsound('music.wav')
+playsound('music1.wav')
+playsound('music1.wav')
+playsound('music1.wav')
+playsound('music1.wav')
+playsound('music1.wav')
