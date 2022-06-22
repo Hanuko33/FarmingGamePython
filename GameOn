@@ -1,4 +1,5 @@
 #!/bin/bash
+clear
 python3 FarmingGameMusic.py &
 python3 FarmingGamePython.py
 sleep 1
