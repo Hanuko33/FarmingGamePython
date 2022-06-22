@@ -1,6 +1,3 @@
 from playsound import *
-playsound('music1.wav')
-playsound('music1.wav')
-playsound('music1.wav')
-playsound('music1.wav')
-playsound('music1.wav')
+for i in range(100):
+    playsound('music1.wav')
