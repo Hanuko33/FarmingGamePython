@@ -1,6 +1,7 @@
 from time import *
 
 
+
 print("Let's start!")
 WhatFocused=0
 wantToStart=input("do you want to start y/n: ")
@@ -8,7 +9,9 @@ flower1Grow=1
 flower2Grow=1
 Coins=0
 power=100
-
+Seeds=0
+Flower3grow=0
+SeedPower=0
 
 print("'Help' for help")
 
@@ -23,7 +26,6 @@ if wantToStart == "y":
 
 # 0 = flower1
 # 1 = flower2
-# not added:
 # 2 = Fancy flower3
 # 3 = shop
 # 4 = sleep 
@@ -40,6 +42,9 @@ if wantToStart == "y":
             print(" 's' to save")
             print(" 'o' to open")
             print(" 'n' to take a nap")
+            print(" 'is' to interact with shop")
+            print(" 'p' to plant seed to Fancy flower")
+            print(" 'cs' to check seeds amount")
             print(" 'exit' to exit")
         if Operation == "help":
             print(" 'a' to move to the left")
@@ -49,6 +54,9 @@ if wantToStart == "y":
             print(" 's' to save")
             print(" 'o' to open")
             print(" 'n' to take a nap")
+            print(" 'is' to interact with shop")
+            print(" 'p' to plant seed to Fancy flower")
+            print(" 'cs' to check seeds amount")
             print(" 'exit' to exit")
 #movement       
         if Operation == "d":
@@ -90,12 +98,24 @@ if wantToStart == "y":
                     power=int(power)
                     power=int(power)-10
                     sleep(1)
+            elif WhatFocused == 2:
+                if Flower3grow >= 50:
+                    sleep(0.5)
+                    Flower3grow=Flower3grow-50
+                    sleep(0.5)
+                    Coins=int(Coins)
+                    Coins=Coins+25
+                    sleep(0.5)
             else:
                 print("YOU ARE NOT FOCUSING FLOWER")
     #coins count
         if Operation == "z":
             print("")
             print("Coins Count:",Coins)
+    #seeds count
+        if Operation == "cs":
+            print("")
+            print("Seeds Count:", Seeds)
     #exit
         if Operation == "exit":
             exit()
@@ -111,6 +131,39 @@ if wantToStart == "y":
                 flower2Grow=int(flower2Grow)
                 flower1Grow=flower1Grow+50
                 flower2Grow=flower2Grow+50
+    #shopInteraction
+        if Operation == "is":
+            Coins=int(Coins)
+            if WhatFocused == 3:
+                Operation = ""
+                print("Shop: Hello! What do you want to buy?")
+                print("to say goodbye: Goodbye")
+                print("to buy seed (for fancy flower) type: I want to buy seeds")
+                ShopDecision=input("Your decision: ")
+                if ShopDecision=="I want to buy seeds":
+                    print("Shop: That's 5 Coins.")
+                    YesOrNo=input("Y/N: ")
+                    if YesOrNo=="Y":
+                        if Coins >= 5:
+                            Coins=Coins-5
+                            print("Here you go. *hands the seeds")
+                            Seeds=Seeds+1
+                    elif YesOrNo=="N":
+                        print("Ok I understand ill try to lower the prices later =).")
+                    else:
+                        print("Shop: What?")
+                elif ShopDecision=="Goodbye":
+                    print("Shop: Goodbye! Have a nice day!")
+            else:
+                print("Why are you trying to talk to plants / bed?")
+    #Flower3
+        if Operation == "p":
+            if Seeds >= 1:            
+                isThirdFlower=True
+                Seeds=Seeds-1
+                SeedPower=50
+            
+
 #world management        
         
         if Operation == "s":
@@ -124,6 +177,12 @@ if wantToStart == "y":
             f.write("\n")
             f.write(str(power))
             f.write("\n")
+            f.write(str(Seeds))
+            f.write("\n")
+            f.write(str(Flower3grow))
+            f.write("\n")
+            f.write(str(SeedPower))
+            f.write("\n")
             f.close()         
         if Operation == "o":
             FileNameOpen=input("name of the save: ")
@@ -131,7 +190,13 @@ if wantToStart == "y":
             Coins=f.readline()
             flower1Grow=f.readline()
             flower2Grow=f.readline()
-            power=f.readline()         
+            power=f.readline()
+            Seeds=f.readline()
+            Seeds=int(Seeds)
+            Flower3grow=f.readline()
+            Flower3grow=int(Flower3grow)
+            SeedPower=f.readline()
+            SeedPower=int(SeedPower)
 #focus
         if WhatFocused == 0:
             print("")
@@ -144,11 +209,13 @@ if wantToStart == "y":
             print("flower grow:",flower2Grow)
         if WhatFocused == 2:
             print("")
-            print("Fancy third flower/not added yet") 
+            print("Fancy third flower")
+            print("Seed Power: ",SeedPower) 
+            print("flower grow:", Flower3grow)
         
         if WhatFocused == 3:
             print("")
-            print("this feature is not added")
+            print("SHOP")
         
         if WhatFocused == 4:
             print("")            
@@ -160,6 +227,9 @@ if wantToStart == "y":
         if int(flower2Grow)<50:
             flower2Grow=int(flower2Grow)
             flower2Grow=flower2Grow+1
+        if SeedPower>=1:
+            Flower3grow=Flower3grow+1
+            SeedPower=SeedPower-1
 #how much power
         print("")
         print("power:", power)

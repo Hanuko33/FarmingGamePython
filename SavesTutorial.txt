@@ -1,0 +1,10 @@
+#-------------------
+#How Saves works:
+#1 line:Coins
+#2 line:flower1Grow
+#3 line:flower2Grow
+#4 line:power
+#5 line:Seeds
+#6 line:Flower3grow
+#7 line:SeedPower
+#-------------------
