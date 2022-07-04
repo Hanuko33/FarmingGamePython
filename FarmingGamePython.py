@@ -9,12 +9,10 @@ import os
 
 
 def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
+    os.system('clear')
 
 
 cls()
-
-
 
 #music
 music = pyglet.resource.media('music1.wav')
@@ -30,6 +28,8 @@ Seeds=0
 Flower3grow=0
 SeedPower=0
 PathOfSaves=os.environ['HOME']+"/FarmingGamePython/Worlds/"
+
+
 
 wantToStart=input("do you want to start y/n: ")
 
@@ -213,6 +213,7 @@ if wantToStart == "y":
             f.write("\n")
             f.close()         
         if Operation == "o":
+            print("Worlds to choose from: " ,os.listdir(PathOfSaves))
             FileNameOpen=input("name of the save: ")
             f = open(PathOfSaves+FileNameOpen)
             Coins=f.readline()
