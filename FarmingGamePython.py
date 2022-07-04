@@ -1,6 +1,23 @@
-print("Let's start!")
+#libs
+import pyglet
+#from pyglet.window import key
+#from pyglet.window import mouse
+import os
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+
+cls()
+
+
+
+#music
+music = pyglet.resource.media('music1.wav')
+music.play()
+
+#setting variables
 WhatFocused=0
-wantToStart=input("do you want to start y/n: ")
 flower1Grow=1
 flower2Grow=1
 Coins=0
@@ -9,28 +26,18 @@ Seeds=0
 Flower3grow=0
 SeedPower=0
 
-print("'Help' for help")
-
-
+wantToStart=input("do you want to start y/n: ")
 
 if wantToStart == "y":
-
+    print("'Help' for help")
     while True:
-        for i in range(10):
-            print("")
+
         Operation=input("your operation: ")
-
-# 0 = flower1
-# 1 = flower2
-# 2 = Fancy flower3
-# 3 = shop
-# 4 = sleep 
-
-
-
+        cls()
 
 #Help
         if Operation == "Help":
+            print(" If your power runs out you will die so remember to sleep!")
             print(" 'a' to move to the left")
             print(" 'd' to move to the right ")
             print(" 'c' to collect plants")
@@ -43,6 +50,7 @@ if wantToStart == "y":
             print(" 'cs' to check seeds amount")
             print(" 'exit' to exit")
         if Operation == "help":
+            print(" If your power runs out you will die so remember to sleep!")
             print(" 'a' to move to the left")
             print(" 'd' to move to the right ")
             print(" 'c' to collect plants")
@@ -60,14 +68,18 @@ if wantToStart == "y":
                 WhatFocused=WhatFocused+1
                 power=int(power)
                 power=power-1
-            Operation = ""
+            else:
+                print("You can't go that way!")
+            #Operation = ""
         
         if Operation == "a":
             if WhatFocused > 0:
                 WhatFocused=WhatFocused-1
                 power=int(power)
                 power=power-1
-            Operation = ""
+            else:
+                print("You can't go that way!")
+            #Operation = ""
 #operations
     #flower collecting
         if Operation == "c":
@@ -94,14 +106,14 @@ if wantToStart == "y":
                     Coins=Coins+25
             else:
                 print("YOU ARE NOT FOCUSING FLOWER")
-    #coins count
+    #coins amount
         if Operation == "z":
             print("")
-            print("Coins Count:",Coins)
-    #seeds count
+            print("Coins amount:",Coins)
+    #seeds amount
         if Operation == "cs":
             print("")
-            print("Seeds Count:", Seeds)
+            print("Seeds amount:", Seeds)
     #exit
         if Operation == "exit":
             exit()
@@ -112,10 +124,14 @@ if wantToStart == "y":
                 power=int(power)
                 power=int(power)+100
                 print("you woke up and you have ", power, " power")
+                print("when you sleept flowers grew. You can now harvest them!")
                 flower1Grow=int(flower1Grow)
                 flower2Grow=int(flower2Grow)
-                flower1Grow=flower1Grow+50
-                flower2Grow=flower2Grow+50
+                flower1Grow=50
+                flower2Grow=50
+                if SeedPower >= 1:
+                    Flower3grow=Flower3grow+SeedPower
+                    SeedPower=0
     #shopInteraction
         if Operation == "is":
             Coins=int(Coins)
@@ -123,36 +139,43 @@ if wantToStart == "y":
                 Operation = ""
                 print("Shop: Hello! What do you want to buy?")
                 print("to say goodbye: Goodbye")
-                print("to buy seed (for fancy flower) type: I want to buy seeds")
+                print("to buy seed (for fancy flower) type: I want to buy seed")
                 ShopDecision=input("Your decision: ")
-                if ShopDecision=="I want to buy seeds":
+                if ShopDecision=="I want to buy seed":
                     print("Shop: That's 5 Coins.")
                     YesOrNo=input("Y/N: ")
                     if YesOrNo=="Y":
                         if Coins >= 5:
                             Coins=Coins-5
-                            print("Here you go. *hands the seeds")
+                            print("Here you go. *hands the seed *you are not interacting with shop anymore")
                             Seeds=Seeds+1
+                            print("You now have", Seeds, "Seed")
+                        else:
+                            print("Shop: It's not enough coins to buy seed! *you are not interacting with shop anymore")
                     elif YesOrNo=="N":
-                        print("Ok I understand ill try to lower the prices later =).")
+                        print("Shop: OK.")
                     else:
-                        print("Shop: What?")
+                        print("Shop: What? *you are not interacting with shop anymore")
                 elif ShopDecision=="Goodbye":
                     print("Shop: Goodbye! Have a nice day!")
+                else:
+                    print("Shop: What do you mean? *you are not interacting with shop anymore")
             else:
-                print("Why are you trying to talk to plants / bed?")
+                print("Your focus is not on shop!")
     #Flower3
         if Operation == "p":
             if Seeds >= 1:            
-                isThirdFlower=True
                 Seeds=Seeds-1
-                SeedPower=50
+                SeedPower=SeedPower+50
+                print("Your flower should grow")
+            else:
+                print("You don't have any seeds!")
             
 
 #world management        
         
         if Operation == "s":
-            FileName=input("how you want you save to be called?: ")
+            FileName=input("how you want you save to be called? Don't overwrite files beacuse this can break your save: ")
             f = open(FileName, "w")
             f.write(str(Coins))
             f.write("\n")
@@ -175,6 +198,8 @@ if wantToStart == "y":
             Coins=f.readline()
             flower1Grow=f.readline()
             flower2Grow=f.readline()
+            flower1Grow=int(flower1Grow)
+            flower2Grow=int(flower2Grow)
             power=f.readline()
             Seeds=f.readline()
             Seeds=int(Seeds)
@@ -185,26 +210,44 @@ if wantToStart == "y":
 #focus
         if WhatFocused == 0:
             print("")
-            print("First flower")
-            print("flower grow:",flower1Grow)
+            print("Your focus is on: First flower")
+            print("flower grow:",flower1Grow, "/ 50")
+            if flower1Grow == 50:
+                print("You can harvest this flower by typing 'c' ")
         
         if WhatFocused == 1:
             print("")
-            print("Second flower")
-            print("flower grow:",flower2Grow)
+            print("Your focus is on: Second flower")
+            print("flower grow:",flower2Grow, "/ 50")
+            if flower2Grow == 50:
+                print("You can harvest this flower by typing 'c' ")
+                            
         if WhatFocused == 2:
             print("")
-            print("Fancy third flower")
+            print("Your focus is on: Fancy third flower")
             print("Seed Power: ",SeedPower) 
             print("flower grow:", Flower3grow)
+            
+            if Flower3grow >= 150:
+                print("You can harvest this flower THREE TIMES (using 'c')")
+            elif Flower3grow >= 100:
+                print("You can harvest this flower TWICE (using 'c')")
+            elif Flower3grow >= 51:
+                print("This flower is overgrown you may need to collect it few times")
+            elif Flower3grow >= 50:
+                print("You can harvest this flower by typing 'c' ")
+            
+            
+            if SeedPower == 0:
+                print("Third flower isn't growing beacuse it need seed that you can get from shop")
         
         if WhatFocused == 3:
             print("")
-            print("SHOP")
+            print("Your focus is on: Shop | 'is' to interact with shop")
         
         if WhatFocused == 4:
             print("")            
-            print("Sleep place")
+            print("Your focus is on: Sleep place | 'n' to take a nap")
 #grow           
         if int(flower1Grow)<50:
             flower1Grow=int(flower1Grow)
@@ -225,6 +268,46 @@ if wantToStart == "y":
         print("")
         print("Focused", WhatFocused)
         
+#what happen
+        print("")
+        print("What happened:")
+       
+        if Operation=="a":
+            print("You tried to go left")
+        
+        if Operation=="d":
+            print("You tried to go right")
+        
+        if Operation=="z":
+            print("You checked your coins amount")
+        
+        if Operation=="help":
+            print("You checked help")
+        
+        if Operation=="Help":
+            print("You checked help")
+        
+        if flower1Grow <= 49:
+            print("First flower grew")
+        
+        if flower2Grow <= 49:
+            print("First flower grew")
+        
+        if SeedPower >= 1:
+            print("Third flower grew")
+        print("You got tired")
+        
+        if Operation=="":
+            print("You did nothing (you waited)")
+        if Operation==" ":
+            print("You did nothing (you waited)")    
+        if Operation=="c":
+            print("You tried to collect flower")
+        if Operation=="p":
+            print("You tried to plant flower")
+            
+            
+        print("")       
 #power
         
         power=int(power)
@@ -235,7 +318,6 @@ if wantToStart == "y":
 
 #game management
 elif wantToStart == "n":
-    print("...")
     exit()
 else:
-    print("WRONG OPERATION!!!")
+    print("Wrong operation!")

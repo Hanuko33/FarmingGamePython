@@ -8,3 +8,4 @@
 #6 line:Flower3grow
 #7 line:SeedPower
 #-------------------
+#kinda useless after some updates

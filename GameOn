@@ -1,6 +1,5 @@
 #!/bin/bash
 clear
-python3 FarmingGameMusic.py &
-python3 FarmingGamePython.py
+python3 $HOME/FarmingGamePython/FarmingGamePython.py
 sleep 1
 killall python3
