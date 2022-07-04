@@ -25,3 +25,6 @@ then run the ./GameOn
 ./GameOn
 ```
 if you have any issues contact me
+
+
+If you have Kanapi64 then just use scripts beacuse i already put that there.
