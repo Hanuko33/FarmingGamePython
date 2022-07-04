@@ -1,7 +1,3 @@
-from time import *
-
-
-
 print("Let's start!")
 WhatFocused=0
 wantToStart=input("do you want to start y/n: ")
@@ -77,35 +73,25 @@ if wantToStart == "y":
         if Operation == "c":
             if WhatFocused == 0:
                 if int(flower1Grow) >= 50:
-                    sleep(1)
                     flower1Grow=int(flower1Grow)
                     flower1Grow=int(flower1Grow)-50
-                    sleep(1)
                     Coins=int(Coins)
                     Coins=int(Coins)+1
-                    sleep(1)
                     power=int(power)
                     power=int(power)-10
             elif WhatFocused ==1:
                 if int(flower2Grow) >= 50:
-                    sleep(1)
                     flower2Grow=int(flower2Grow)
                     flower2Grow=int(flower2Grow)-50
-                    sleep(1)
                     Coins=int(Coins)
                     Coins=int(Coins)+1
-                    sleep(1)
                     power=int(power)
                     power=int(power)-10
-                    sleep(1)
             elif WhatFocused == 2:
                 if Flower3grow >= 50:
-                    sleep(0.5)
                     Flower3grow=Flower3grow-50
-                    sleep(0.5)
                     Coins=int(Coins)
                     Coins=Coins+25
-                    sleep(0.5)
             else:
                 print("YOU ARE NOT FOCUSING FLOWER")
     #coins count
@@ -123,7 +109,6 @@ if wantToStart == "y":
         if Operation == "n":
             if WhatFocused == 4:
                 print("you went to sleep")
-                sleep(10)
                 power=int(power)
                 power=int(power)+100
                 print("you woke up and you have ", power, " power")
@@ -246,7 +231,6 @@ if wantToStart == "y":
         power=int(power)-1
         if power <= 0:
             print("You died")
-            sleep(10)
             exit()
 
 #game management
