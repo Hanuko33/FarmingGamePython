@@ -1,30 +1,52 @@
 # FarmingGamePython
 Small game I'm working on to teach myself something
 
+On kanapi64 there is full support please concider cheking that out!: https://github.com/jdanecki/kanapi64 
 
-It requires lib time and python3
-If you want to run script ./GameCode you need linux and code
+#Tutorial of installation:
+first make sure you are in your home otherwise it wont work:
 
-the ./GameCode and ./GameOn scripts are only for linux
+```
+cd
+```
 
-to run this game on windows just do r-click and "open with" and choose python
-
-little instruction for linux users:
-
-first you need to clone (download)
+second you need to download the game.
 
 ```
 git clone https://github.com/Hanuko33/FarmingGamePython
 ```
-then cd to it
+
+then cd to it.
+
 ```
 cd FarmingGamePython
 ```
-then run the ./GameOn
+
+cd to bin
+====================================================
+
 ```
-./GameOn
+cd /bin
 ```
+
+or if it didn't worked:
+
+```
+cd /usr/bin
+```
+
+if both of this things didn't worked then you can try this (but this will only work on your user):
+
+```
+cd $HOME/bin
+```
+=====================================================
+after you cd in any of this files then create link inside of bin:
+
+```
+ln -s $PATH/FarmingGamePython/FarmingGamePython.py
+```
+
 if you have any issues contact me
 
 
-If you have Kanapi64 then just use scripts beacuse i already put that there.

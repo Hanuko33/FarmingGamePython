@@ -1,4 +1,4 @@
 #!/bin/bash
-VER=0.9.1
-git push
-git push origin $VER
+VER=0.10
+git push -f 
+git push -f origin $VER

@@ -13,9 +13,8 @@ def cls():
 
 
 cls()
-
-#music
-music = pyglet.resource.media('music1.wav')
+HOMEPATH=os.environ['HOME']
+music = pyglet.media.load(HOMEPATH+'/FarmingGamePython/music1.wav')
 music.play()
 
 #setting variables
