@@ -1,5 +1,0 @@
-#!/bin/bash
-clear
-python3 $HOME/FarmingGamePython/FarmingGamePython.py
-sleep 1
-killall python3

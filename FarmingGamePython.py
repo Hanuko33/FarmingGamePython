@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 #libs
 import pyglet
 #from pyglet.window import key
