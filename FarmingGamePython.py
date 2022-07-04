@@ -6,6 +6,8 @@ import pyglet
 #from pyglet.window import mouse
 import os
 
+
+
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
@@ -27,6 +29,7 @@ power=100
 Seeds=0
 Flower3grow=0
 SeedPower=0
+PathOfSaves=os.environ['HOME']+"/FarmingGamePython/Worlds/"
 
 wantToStart=input("do you want to start y/n: ")
 
@@ -36,7 +39,7 @@ if wantToStart == "y":
 
         Operation=input("your operation: ")
         cls()
-
+        
 #Help
         if Operation == "Help":
             print(" If your power runs out you will die so remember to sleep!")
@@ -193,7 +196,7 @@ if wantToStart == "y":
         
         if Operation == "s":
             FileName=input("how you want you save to be called? Don't overwrite files beacuse this can break your save: ")
-            f = open(FileName, "w")
+            f = open(PathOfSaves+FileName, "w")
             f.write(str(Coins))
             f.write("\n")
             f.write(str(flower1Grow))
@@ -211,7 +214,7 @@ if wantToStart == "y":
             f.close()         
         if Operation == "o":
             FileNameOpen=input("name of the save: ")
-            f = open(FileNameOpen)
+            f = open(PathOfSaves+FileNameOpen)
             Coins=f.readline()
             flower1Grow=f.readline()
             flower2Grow=f.readline()
