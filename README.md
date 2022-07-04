@@ -16,11 +16,7 @@ second you need to download the game.
 git clone https://github.com/Hanuko33/FarmingGamePython
 ```
 
-then cd to it.
 
-```
-cd FarmingGamePython
-```
 
 cd to bin
 ====================================================
@@ -44,7 +40,7 @@ cd $HOME/bin
 after you cd in any of this files then create link inside of bin:
 
 ```
-ln -s $PATH/FarmingGamePython/FarmingGamePython.py
+ln -s $HOME/FarmingGamePython/FarmingGamePython.py
 ```
 
 if you have any issues contact me
