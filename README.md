@@ -3,14 +3,23 @@ Small game I'm working on to teach myself something
 
 On kanapi64 there is full support please concider cheking that out!: https://github.com/jdanecki/kanapi64 
 
+
+
+
+
 #Tutorial of installation:
-first make sure you are in your home otherwise it wont work:
+*THIS GAME REQUIRE LIB PYGLET*
+```
+pip install pyglet
+```
+
+first to install make sure you are in your home otherwise it wont work:
 
 ```
 cd
 ```
 
-second you need to download the game.
+second to install you need to download the game.
 
 ```
 git clone https://github.com/Hanuko33/FarmingGamePython
