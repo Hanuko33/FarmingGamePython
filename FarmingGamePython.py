@@ -142,6 +142,7 @@ if wantToStart == "y":
                 print("Shop: Hello! What do you want to buy?")
                 print("to say goodbye: Goodbye")
                 print("to buy seed (for fancy flower) type: I want to buy seed")
+                print("to buy multiple seeds (for fancy flower) type: I want to buy seeds")
                 ShopDecision=input("Your decision: ")
                 if ShopDecision=="I want to buy seed":
                     print("Shop: That's 5 Coins.")
@@ -149,7 +150,7 @@ if wantToStart == "y":
                     if YesOrNo=="Y":
                         if Coins >= 5:
                             Coins=Coins-5
-                            print("Here you go. *hands the seed *you are not interacting with shop anymore")
+                            print("Shop: Here you go. *hands the seed *you are not interacting with shop anymore")
                             Seeds=Seeds+1
                             print("You now have", Seeds, "Seed")
                         else:
@@ -160,6 +161,20 @@ if wantToStart == "y":
                         print("Shop: What? *you are not interacting with shop anymore")
                 elif ShopDecision=="Goodbye":
                     print("Shop: Goodbye! Have a nice day!")
+                elif ShopDecision=="I want to buy seeds":
+                    HowMuchSeeds=input("Shop: How much do you want?")
+                    priceForSeeds=HowMuchSeeds*5
+                    print("Shop: It's ", priceForSeeds, "Coins")
+                    YesOrNo2=input("Y/N")
+                    if YesOrNo2=="Y":
+                        if Coins >= priceForSeeds:
+                            print("Shop: Here you go. *hands the seeds *you are not interacting with shop anymore")
+                        else:
+                            print("Shop: It's not enought *you are not interacting with shop anymore")
+                    elif YesOrNo2=="N":
+                        print("Shop:OK")
+                    else:
+                        print("Shop: What do you mean? *you are not interacting with shop anymore")
                 else:
                     print("Shop: What do you mean? *you are not interacting with shop anymore")
             else:
