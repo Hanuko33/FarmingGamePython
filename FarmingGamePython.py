@@ -1,21 +1,24 @@
 #!/usr/bin/python3
 
 #libs
-import pyglet
-#from pyglet.window import key
-#from pyglet.window import mouse
+from pygame import mixer
 import os
+from time import sleep
 
 
 
 def cls():
     os.system('clear')
 
-
 cls()
 HOMEPATH=os.environ['HOME']
-music = pyglet.media.load(HOMEPATH+'/FarmingGamePython/music1.wav')
-music.play()
+HowLoud=float(input("How loud do you want the music to be? default=100: "))
+HowLoud=HowLoud/100
+
+mixer.init()
+mixer.music.load(HOMEPATH+"/FarmingGamePython/music1.wav")
+mixer.music.set_volume(HowLoud)
+mixer.music.play()
 
 #setting variables
 WhatFocused=0
@@ -333,7 +336,14 @@ if wantToStart == "y":
         power=int(power)
         power=int(power)-1
         if power <= 0:
+            
+            mixer.music.stop()
+            mixer.music.load(HOMEPATH+"/FarmingGamePython/music2.wav")
+            mixer.music.set_volume(float(HowLoud)-0.2)
+            mixer.music.play()
+            
             print("You died")
+            sleep(9)
             exit()
 
 #game management
