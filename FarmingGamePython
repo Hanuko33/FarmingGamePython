@@ -1,0 +1,622 @@
+#!/usr/bin/python3
+
+#libs
+from random import random
+from pygame import mixer
+import os
+from time import sleep
+
+
+
+def cls():
+    os.system('clear')
+
+cls()
+HOMEPATH=os.environ['HOME']
+HowLoud=float(input("How loud do you want the music to be? default=100: "))
+HowLoud=HowLoud/100
+
+mixer.init()
+for j in range(100):
+    mixer.music.load(HOMEPATH+"/FarmingGamePython/music1.wav")
+mixer.music.set_volume(HowLoud)
+mixer.music.play()
+
+#setting variables
+WhatFocused=0
+flower1Grow=1
+flower2Grow=1
+Coins=0
+power=100
+Seeds=0
+Flower3grow=0
+SeedPower=0
+wood=0
+treeGrow=0
+treeSeeds=0
+treeSeedPower=0
+HaveAxe=0
+SawmilPriceTimer=0
+WoodCostMultiplier=0
+PathOfSaves=os.environ['HOME']+"/FarmingGamePython/Worlds/"
+
+###############################################################
+# focus:
+###############################################################
+# 0: flower1
+# 1: flower2
+# 2: Fancyflower3
+# 3: shop
+# 4: sleep place
+# 5: Tree
+# 6: sawmil
+###############################################################
+def PrintHelp():
+    print(" If your power runs out you will die so remember to sleep!")
+    print(" 'a' to move to the left")
+    print(" 'd' to move to the right ")
+    print(" 'c' to collect plants")
+    print(" 'z' to check Coins ")
+    print(" 's' to save")
+    print(" 'o' to open")
+    print(" 'n' to take a nap")
+    print(" 'is' to interact with shop")
+    print(" 'p' to plant seed to Fancy flower")
+    print(" 'cs' to check seeds amount")
+    print(" 'cts' to check tree seeds amount")
+    print(" 'ci' to check inventory")
+    print(" 'pt' to plant tree seed to tree")
+    print(" 'ct' to collect tree")
+    print(" 'si' to interact to sawmil (shop to sell wood)")
+    print(" 'exit' to exit")
+
+
+
+wantToStart=input("do you want to start y/n: ")
+
+if wantToStart == "y":
+    print("'Help' for help")
+    while True:
+
+        Operation=input("your operation: ")
+        cls()
+        
+#Help
+        if Operation == "Help":
+            PrintHelp()
+        if Operation == "help":
+            PrintHelp()
+#sawmil
+        SawmilPriceTimer=int(SawmilPriceTimer)
+        SawmilPriceTimer=SawmilPriceTimer+1
+        if SawmilPriceTimer==4:
+            SawmilPriceTimer=0
+            WoodCostMultiplier=random()
+            if WoodCostMultiplier <= 0.25:
+                WoodCostMultiplier=1
+            elif WoodCostMultiplier <= 0.50:
+                WoodCostMultiplier=2
+            elif WoodCostMultiplier <= 0.75:
+                WoodCostMultiplier=3
+            elif WoodCostMultiplier <= 1:
+                WoodCostMultiplier=4
+        if Operation == "si":
+            print("Sawmil: Do you want to all your wood in current multiplier? (", WoodCostMultiplier, ")")
+            YesOrNo=input("Y/N: ")
+            if YesOrNo == "N":
+                print("Sawmil: Come back later! Have a good day! *You are not interacting with shop anymore")
+            
+            if YesOrNo == "Y":
+                if wood==0:
+                    print("Sawmil: You don't have any wood!!!")
+                else:
+                    IncomeFromWood=50*WoodCostMultiplier*wood
+                    print("Sawmil: You will get: ", IncomeFromWood, "coins")
+                    Coins=Coins+IncomeFromWood
+                    print("You now have: ", Coins, "coins")
+            else:
+                print("Sawmil: What??? *You are not interacting with shop anymore")
+#movement       
+        if Operation == "d":
+            if WhatFocused < 6:
+                WhatFocused=WhatFocused+1
+                power=int(power)
+            else:
+                print("You can't go that way!")
+            #Operation = ""
+        
+        if Operation == "a":
+            if WhatFocused > 0:
+                WhatFocused=WhatFocused-1
+                power=int(power)
+            else:
+                print("You can't go that way!")
+            #Operation = ""
+#operations
+    #flower collecting
+        if Operation == "c":
+            if WhatFocused == 0:
+                if int(flower1Grow) >= 50:
+                    flower1Grow=int(flower1Grow)
+                    flower1Grow=int(flower1Grow)-50
+                    Coins=int(Coins)
+                    Coins=int(Coins)+1
+                    power=int(power)
+                    power=int(power)-10
+            elif WhatFocused ==1:
+                if int(flower2Grow) >= 50:
+                    flower2Grow=int(flower2Grow)
+                    flower2Grow=int(flower2Grow)-50
+                    Coins=int(Coins)
+                    Coins=int(Coins)+1
+                    power=int(power)
+                    power=int(power)-10
+            elif WhatFocused == 2:
+                if Flower3grow >= 50:
+                    Flower3grow=Flower3grow-50
+                    Coins=int(Coins)
+                    Coins=Coins+25
+            else:
+                print("YOU ARE NOT FOCUSING FLOWER")
+    #tree collecting
+        if Operation == "ct":
+            if WhatFocused == 5:
+                if HaveAxe == 1:
+                    if treeGrow == 100:
+                        randomNumber=random()
+                        if randomNumber >= 0.5:
+                            wood=wood+1
+                            treeGrow=0
+                            print("You got 1 wood. You now have ", wood, " wood")
+                        if randomNumber < 0.49:
+                            treeGrow=0
+                            wood=wood+2
+                            print("You got 2 wood (lucky). You now have ", wood, "wood")
+                    else:
+                        print("Tree didn't grow to 100!")
+                else:
+                    print("You don't have axe!")
+            else:
+                print("You are not focusing tree")                                              
+    
+    #coins amount
+        if Operation == "z":
+            print("")
+            print("Coins amount:",Coins)
+    #seeds amount
+        if Operation == "cs":
+            print("")
+            print("Seeds amount:", Seeds)
+    #inventory checking
+        if Operation == "ci":
+            print("")
+            print("Axe:", end="")
+            if HaveAxe==0:
+                print("no")
+            elif HaveAxe==1:
+                print("yes")
+            else:
+                print("HACKED")
+            
+            
+    #tree seeds amount
+        if Operation == "cts":
+            print("")
+            print("tree seeds amount:", treeSeeds)
+    #exit
+        if Operation == "exit":
+            exit()
+    #nap
+        if Operation == "n":
+            if WhatFocused == 4:
+                print("you went to sleep")
+                power=int(power)
+                power=int(power)+100
+                print("you woke up and you have ", power, " power")
+                
+                if treeSeedPower >= 1:
+                    print("when you sleept flowers and tree grew. You can now harvest them!")
+                else:
+                    print("when you sleept flowers grew. You can now harvest them!")
+                flower1Grow=int(flower1Grow)
+                flower2Grow=int(flower2Grow)
+                flower1Grow=50
+                flower2Grow=50
+                if SeedPower >= 1:
+                    Flower3grow=Flower3grow+SeedPower
+                    SeedPower=0
+                for i in range(100):
+                    if treeGrow <=99:
+                        if treeSeedPower >= 1:
+                            treeSeedPower=treeSeedPower-1
+                            treeGrow=treeGrow+1
+
+            
+    #shopInteraction
+        if Operation == "is":
+            Coins=int(Coins)
+            if WhatFocused == 3:
+                Operation = ""
+                print("Shop: Hello! What do you want to buy?")
+                print("to say goodbye: Goodbye")
+                print("to buy seed (for fancy flower) type: I want to buy seed")
+                print("to buy multiple seeds (for fancy flower) type: I want to buy seeds")
+                print("to buy tree seed type: I want to buy tree seed")
+                print("to buy multiple tree seeds type: I want to buy tree seeds")
+                print("to buy axe type: I want to buy axe")
+                ShopDecision=input("Your decision: ")
+                
+                if ShopDecision=="I want to buy seed":
+                    print("Shop: That's 5 Coins.")
+                    YesOrNo=input("Y/N: ")
+                
+                    if YesOrNo=="Y":
+                
+                        if Coins >= 5:
+                            Coins=Coins-5
+                            print("Shop: Here you go. *hands the seed *you are not interacting with shop anymore")
+                            Seeds=Seeds+1
+                            print("You now have", Seeds, "Seed")
+                
+                        else:
+                            print("Shop: It's not enough coins to buy seed! *you are not interacting with shop anymore")
+                
+                    elif YesOrNo=="N":
+                        print("Shop: OK. *you are not interacting with shop anymore")
+                
+                    else:
+                        print("Shop: What? *you are not interacting with shop anymore")
+                elif ShopDecision=="I want to buy axe":
+                    print("Shop: It's 50 coins")
+                    YesOrNo=input("Y/N: ")
+                    if YesOrNo == "Y":
+                        if Coins >= 50:
+                            if HaveAxe == 0:
+                                print("Shop: Here you go. *Hand the axe *you are not interacting with shop anymore")               
+                                print("You now have axe!")
+                                HaveAxe = 1
+                                Coins=Coins-50
+                            elif HaveAxe == 1:
+                                print("Shop: You already have an axe! I won't sell you another one! *you are not interacting with shop anymore")
+
+                            else:
+                                print("YOU HACKER! WHY?!")
+
+                        else:
+                            print("Shop: That's not enought for an axe! *you are not interacting with shop anymore")
+                    
+                    elif YesOrNo == "N":
+                        print("Shop: OK. *You are not interacting with shop anymore")
+                    else:
+                        print("Shop: What? *you are not interacting with shop anymore")
+                elif ShopDecision=="I want to buy tree seed":
+                    print("Shop: That's 25 coins")
+                    YesOrNo=input("Y/N: ")
+                
+                    if YesOrNo=="Y":
+                
+                        if Coins >= 25:
+                            Coins=Coins-25
+                            print("Shop: Here you go. *hands the tree seed *you are not interacting with shop anymore")
+                            treeSeeds=treeSeeds+1
+                            print("You now have", treeSeeds, "Tree seeds")
+                
+                    elif YesOrNo=="N":
+                        print("Shop: OK.")
+                
+                    else:
+                        print("Shop: What? *you are not interacting with shop anymore")
+                
+                elif ShopDecision=="Goodbye":
+                    print("Shop: Goodbye! Have a nice day!")
+                
+                elif ShopDecision=="I want to buy tree seeds":
+                    HowMuchSeeds=int(input("Shop: How much do you want?: "))
+                    priceForSeeds=HowMuchSeeds*25
+                    print("Shop: It's ", priceForSeeds, "Coins")
+                    YesOrNo2=input("Y/N: ")
+                           
+                    if YesOrNo2=="Y":
+                
+                        if Coins >= priceForSeeds:
+                            print("Shop: Here you go. *hands the seeds *you are not interacting with shop anymore")
+                            treeSeeds=treeSeeds+HowMuchSeeds
+                            Coins=Coins-priceForSeeds
+                            print("You have now ", treeSeeds, "Tree seeds")
+                
+                        else:
+                            print("Shop: It's not enought! *you are not interacting with shop anymore")
+                
+                    elif YesOrNo2=="N":
+                        print("Shop: OK. *you are not interacting with shop anymore")
+                
+                    else:
+                        print("Shop: What do you mean? *you are not interacting with shop anymore")
+                    
+                
+                elif ShopDecision=="I want to buy seeds":
+                    HowMuchSeeds=int(input("Shop: How much do you want?: "))
+                    priceForSeeds=HowMuchSeeds*5
+                    print("Shop: It's ", priceForSeeds, "Coins")
+                    YesOrNo2=input("Y/N: ")
+                
+                    if YesOrNo2=="Y":
+                        if Coins >= priceForSeeds:
+                            print("Shop: Here you go. *hands the seeds *you are not interacting with shop anymore")
+                            Seeds=Seeds+HowMuchSeeds
+                            Coins=Coins-priceForSeeds
+                            print("You have now ", Seeds, "seeds")
+                        
+                        else:
+                            print("Shop: It's not enought *you are not interacting with shop anymore")
+                    
+                    elif YesOrNo2=="N":
+                        print("Shop:OK")
+                    
+                    else:
+                        print("Shop: What do you mean? *you are not interacting with shop anymore")
+                
+                else:
+                    print("Shop: What do you mean? *you are not interacting with shop anymore")
+            
+            else:
+                print("Your focus is not on shop!")
+    #Flower3
+        if Operation == "p":
+            if Seeds >= 1:            
+                Seeds=Seeds-1
+                SeedPower=SeedPower+50
+                print("Your flower should grow")
+            else:
+                print("You don't have any seeds!")
+    #tree planting
+        if Operation == "pt":
+            if treeSeeds >=1:
+                treeSeeds=treeSeeds-1
+                treeSeedPower=treeSeedPower+100
+                print("The tree should grow. REMEMBER!!!: You need axe to harvest tree")
+            else:
+                print("You don't have any seeds!")
+            
+
+#world management        
+        
+        if Operation == "s":
+            FileName=input("how you want you save to be called?: ")
+            f = open(PathOfSaves+FileName, "w")
+            
+            f.write(str(Coins))
+            f.write("\n")
+            
+            f.write(str(flower1Grow))
+            f.write("\n")
+            
+            f.write(str(flower2Grow))
+            f.write("\n")
+            
+            f.write(str(power))
+            f.write("\n")
+            
+            f.write(str(Seeds))
+            f.write("\n")
+            
+            f.write(str(Flower3grow))
+            f.write("\n")
+            
+            f.write(str(SeedPower))
+            f.write("\n")
+            
+            f.write(str(treeGrow))
+            f.write("\n")
+            
+            f.write(str(wood))
+            f.write("\n")
+            
+            f.write(str(treeSeeds))
+            f.write("\n")
+            
+            f.write(str(treeSeedPower))
+            f.write("\n")
+            
+            f.write(str(HaveAxe))
+            f.write("\n")
+            
+            f.write(str(SawmilPriceTimer))
+            f.write("\n")
+            
+            f.write(str(WoodCostMultiplier))
+            f.write("\n")
+            
+            f.close()         
+        if Operation == "o":
+            print("Worlds to choose from: " ,os.listdir(PathOfSaves))
+            FileNameOpen=input("name of the save: ")
+            f = open(PathOfSaves+FileNameOpen)
+            
+            Coins=f.readline()
+            Coins=int(Coins)
+            
+            flower1Grow=f.readline()
+            flower1Grow=int(flower1Grow)
+            
+            flower2Grow=f.readline()            
+            flower2Grow=int(flower2Grow)
+            
+            power=f.readline()
+            power=int(power)
+            
+            Seeds=f.readline()
+            Seeds=int(Seeds)
+            
+            Flower3grow=f.readline()
+            Flower3grow=int(Flower3grow)
+            
+            SeedPower=f.readline()
+            SeedPower=int(SeedPower)
+            
+            treeGrow=f.readline()
+            treeGrow=int(treeGrow)
+            
+            wood=f.readline()
+            wood=int(wood)
+            
+            treeSeeds=f.readline()
+            treeSeeds=int(treeSeeds)
+            
+            treeSeedPower=f.readline()
+            treeSeedPower=int(treeSeedPower)
+
+            HaveAxe=f.readline()
+            HaveAxe=int(HaveAxe)
+
+            SawmilPriceTimer=f.readline()
+            treeSeedPower=int(treeSeedPower)
+            
+            WoodCostMultiplier=f.readline()
+            WoodCostMultiplier=int(WoodCostMultiplier)
+
+# focus
+        if WhatFocused == 0:
+            print("")
+            print("Your focus is on: First flower")
+            print("flower grow:",flower1Grow, "/ 50")
+            if flower1Grow == 50:
+                print("You can harvest this flower by typing 'c' ")
+        
+        if WhatFocused == 1:
+            print("")
+            print("Your focus is on: Second flower")
+            print("flower grow:",flower2Grow, "/ 50")
+            if flower2Grow == 50:
+                print("You can harvest this flower by typing 'c' ")
+                            
+        if WhatFocused == 2:
+            print("")
+            print("Your focus is on: Fancy third flower")
+            print("Seed Power: ",SeedPower) 
+            print("flower grow:", Flower3grow)
+            
+            if Flower3grow >=200:
+                print("This flower is overgrwn you can harverst it by using 'c' ")
+            elif Flower3grow >= 150:
+                print("You can harvest this flower THREE TIMES (using 'c')")
+            elif Flower3grow >= 100:
+                print("You can harvest this flower TWICE (using 'c')")
+            elif Flower3grow >= 51:
+                print("This flower is overgrown you may need to collect it few times")
+            elif Flower3grow >= 50:
+                print("You can harvest this flower by typing 'c' ")
+            
+            
+            if SeedPower == 0:
+                print("Third flower isn't growing beacuse it need seed that you can get from shop")
+        
+        if WhatFocused == 3:
+            print("")
+            print("Your focus is on: Shop | 'is' to interact with shop")
+        
+        if WhatFocused == 4:
+            print("")            
+            print("Your focus is on: Sleep place | 'n' to take a nap")
+        if WhatFocused == 5:
+            print("")
+            print("Your focus is on: Tree")
+            print("Tree seed power:", treeSeedPower)
+            print("Tree grow:" , treeGrow, "/ 100")
+            print("To collect tree it requires axe!")
+            if treeGrow == 100:
+                print("Your tree is fully grown! 'ct' to collect it! ")
+            
+            if treeSeedPower == 0:
+                print("Tree isn't growing beacuse it need seed power that you get from seeds that you can get from shop")
+        if WhatFocused ==6:
+            print("")
+            print("Your focus is on: sawmil")
+            print("Sawmil: My current price multiplier is: ", WoodCostMultiplier, "Use 'si' to interact with me.")
+#grow           
+        if int(flower1Grow)<50:
+            flower1Grow=int(flower1Grow)
+            flower1Grow=flower1Grow+1
+        if int(flower2Grow)<50:
+            flower2Grow=int(flower2Grow)
+            flower2Grow=flower2Grow+1
+        if SeedPower>=1:
+            Flower3grow=Flower3grow+1
+            SeedPower=SeedPower-1
+        if treeSeedPower:
+            if treeGrow <= 99:
+                treeGrow=treeGrow+1
+                treeSeedPower=treeSeedPower-1
+#how much power
+        print("")
+        print("power:", power)
+        print("")
+
+
+#what Focused
+        print("")
+        print("Focused", WhatFocused)
+        
+#what happen
+        print("")
+        print("What happened:")
+       
+        if Operation=="a":
+            print("You tried to go left")
+        
+        if Operation=="d":
+            print("You tried to go right")
+        
+        if Operation=="z":
+            print("You checked your coins amount")
+        
+        if Operation=="help":
+            print("You checked help")
+        
+        if Operation=="Help":
+            print("You checked help")
+        
+        if flower1Grow <= 49:
+            print("First flower grew")
+        
+        if flower2Grow <= 49:
+            print("First flower grew")
+        
+        if SeedPower >= 1:
+            print("Third flower grew")
+        print("You got tired")
+        
+        if Operation=="":
+            print("You did nothing (you waited)")
+        if Operation==" ":
+            print("You did nothing (you waited)")    
+        if Operation=="c":
+            print("You tried to collect flower")
+        if Operation=="p":
+            print("You tried to plant flower")
+        if Operation=="pt":
+            print("You tried to plant tree")
+        if Operation=="ct":
+            print("You tried to collect tree")
+            
+        print("")       
+#power
+        
+        power=int(power)
+        power=int(power)-1
+        if power <= 0:
+            
+            mixer.music.stop()
+            mixer.music.load(HOMEPATH+"/FarmingGamePython/music2.wav")
+            mixer.music.set_volume(float(HowLoud)-0.2)
+            mixer.music.play()
+            
+            print("You died")
+            sleep(9)
+            exit()
+
+#game management
+elif wantToStart == "n":
+    exit()
+else:
+    print("Wrong operation!")

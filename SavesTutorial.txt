@@ -1,5 +1,5 @@
 #-------------------
-#How Saves works:
+#Lines of saves:
 #1 line:Coins
 #2 line:flower1Grow
 #3 line:flower2Grow
@@ -7,5 +7,11 @@
 #5 line:Seeds
 #6 line:Flower3grow
 #7 line:SeedPower
+#8 line:treeGrow
+#9 line:wood
+#10 line:treeSeeds
+#11 line: treeSeedPower
+#12 line: HaveAxe (0/1)
+#13 line: SawmilPriceTimer (0/1/2/3/4)
+#14 line: wood cost multiplier (1/2/3/4)
 #-------------------
-#kinda useless after some updates

@@ -8,11 +8,19 @@ On kanapi64 there is full support please concider cheking that out!: https://git
 
 
 #Tutorial of installation:
-*THIS GAME REQUIRE LIB PYGAME*
+*THIS GAME REQUIRE LIBS: pygame, sleep, os, random*
 ```
-pip install pygame
+pip3 install pygame
 ```
-
+```
+pip3 install sleep
+```
+```
+pip3 install os
+```
+```
+pip3 install random
+```
 first to install make sure you are in your home otherwise it wont work:
 
 ```
@@ -29,27 +37,23 @@ git clone https://github.com/Hanuko33/FarmingGamePython
 
 cd to bin
 ====================================================
-
+first check the path of bin
 ```
-cd /bin
+echo $PATH
 ```
+then cd to one of the things from ```echo $PATH```
 
-or if it didn't worked:
-
+for me its:
 ```
 cd /usr/bin
 ```
 
-if both of this things didn't worked then you can try this (but this will only work on your user):
 
-```
-cd $HOME/bin
-```
 =====================================================
 after you cd in any of this files then create link inside of bin:
 
 ```
-ln -s $HOME/FarmingGamePython/FarmingGamePython.py
+ln -s $HOME/FarmingGamePython/FarmingGamePythony
 ```
 
 if you have any issues contact me
