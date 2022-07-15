@@ -17,12 +17,12 @@ HowLoud=float(input("How loud do you want the music to be? default=100: "))
 HowLoud=HowLoud/100
 
 mixer.init()
-for j in range(100):
-    mixer.music.load(HOMEPATH+"/FarmingGamePython/music1.wav")
+mixer.music.load(HOMEPATH+"/FarmingGamePython/music1.wav")
 mixer.music.set_volume(HowLoud)
 mixer.music.play()
 
 #setting variables
+discordLink="https://discord.gg/UjgtXV29gf"
 WhatFocused=0
 flower1Grow=1
 flower2Grow=1
@@ -38,6 +38,9 @@ treeSeedPower=0
 HaveAxe=0
 SawmilPriceTimer=0
 WoodCostMultiplier=0
+havePickaxe=0
+VariableThings=0
+stone=0
 PathOfSaves=os.environ['HOME']+"/FarmingGamePython/Worlds/"
 
 ###############################################################
@@ -50,6 +53,8 @@ PathOfSaves=os.environ['HOME']+"/FarmingGamePython/Worlds/"
 # 4: sleep place
 # 5: Tree
 # 6: sawmil
+# 7: mine
+# 8: workshop
 ###############################################################
 def PrintHelp():
     print(" If your power runs out you will die so remember to sleep!")
@@ -68,15 +73,22 @@ def PrintHelp():
     print(" 'pt' to plant tree seed to tree")
     print(" 'ct' to collect tree")
     print(" 'si' to interact to sawmil (shop to sell wood)")
+    print(" 'ma' to go on mining adventure (you must focus mine)")
+    print(" 'iw' to interact with workshop(you must focus workshop)")
     print(" 'exit' to exit")
-
-
+    print(" 'Help2' for next page")
+def printHelp2():
+    print(" 'cw' to check wood count")
+    print(" 'dc' to check diamonds count")
+    print(" 'sc' to check stone count")
+    print(" 'discord' to get discord invite link")
 
 wantToStart=input("do you want to start y/n: ")
 
 if wantToStart == "y":
     print("'Help' for help")
     while True:
+
 
         Operation=input("your operation: ")
         cls()
@@ -86,6 +98,21 @@ if wantToStart == "y":
             PrintHelp()
         if Operation == "help":
             PrintHelp()
+        if Operation == "Help2":
+            printHelp2()
+        if Operation == "help2":
+            printHelp2()
+
+#check wood count
+        if Operation == "cw":
+            print("Wood count: ", wood)
+#check diamonds count
+        if Operation == "sc":
+            print("Stone count: ", stone)
+#check diamonds count
+        if Operation == "dc":
+            print("Diamonds count: ", VariableThings)
+
 #sawmil
         SawmilPriceTimer=int(SawmilPriceTimer)
         SawmilPriceTimer=SawmilPriceTimer+1
@@ -118,7 +145,7 @@ if wantToStart == "y":
                 print("Sawmil: What??? *You are not interacting with shop anymore")
 #movement       
         if Operation == "d":
-            if WhatFocused < 6:
+            if WhatFocused < 8:
                 WhatFocused=WhatFocused+1
                 power=int(power)
             else:
@@ -131,8 +158,13 @@ if wantToStart == "y":
                 power=int(power)
             else:
                 print("You can't go that way!")
-            #Operation = ""
+            
 #operations
+    #discord
+        if Operation=="discord":
+            print(discordLink, " ENJOY!")
+    
+    
     #flower collecting
         if Operation == "c":
             if WhatFocused == 0:
@@ -195,8 +227,11 @@ if wantToStart == "y":
                 print("no")
             elif HaveAxe==1:
                 print("yes")
+            print("Pickaxe:", end="")
+            if havePickaxe==0:
+                print("no")
             else:
-                print("HACKED")
+                print("yes")
             
             
     #tree seeds amount
@@ -244,6 +279,7 @@ if wantToStart == "y":
                 print("to buy tree seed type: I want to buy tree seed")
                 print("to buy multiple tree seeds type: I want to buy tree seeds")
                 print("to buy axe type: I want to buy axe")
+                print("to buy pickaxe type: I want to buy pickaxe")
                 ShopDecision=input("Your decision: ")
                 
                 if ShopDecision=="I want to buy seed":
@@ -264,6 +300,21 @@ if wantToStart == "y":
                     elif YesOrNo=="N":
                         print("Shop: OK. *you are not interacting with shop anymore")
                 
+                    else:
+                        print("Shop: What? *you are not interacting with shop anymore")
+                elif ShopDecision=="I want to buy pickaxe":
+                    print("Shop: It's 100 coins")
+                    YesOrNo=input("Y/N: ")
+                    if YesOrNo=="Y":
+                        if Coins>=100:
+                            if havePickaxe==0:
+                                print("Shop: Here you go! *hands the pickaxe*you are not interacting with shop anymore")
+                            else:
+                                print("Shop: You already have one! I won't sell you another one *you are not interacting with shop anymore")
+                        else:
+                            print("Shop: That's not enought coins! *you are not interacting with shop anmore")
+                    elif YesOrNo=="N":
+                        print("Shop: OK. *you are not interacting with shop anymore")
                     else:
                         print("Shop: What? *you are not interacting with shop anymore")
                 elif ShopDecision=="I want to buy axe":
@@ -427,6 +478,15 @@ if wantToStart == "y":
             f.write(str(WoodCostMultiplier))
             f.write("\n")
             
+            f.write(str(havePickaxe))
+            f.write("\n")
+            
+            f.write(str(VariableThings))
+            f.write("\n")
+                       
+            f.write(str(stone))
+            f.write("\n") 
+            
             f.close()         
         if Operation == "o":
             print("Worlds to choose from: " ,os.listdir(PathOfSaves))
@@ -475,6 +535,14 @@ if wantToStart == "y":
             WoodCostMultiplier=f.readline()
             WoodCostMultiplier=int(WoodCostMultiplier)
 
+            HaveAxe=f.readline()
+            HaveAxe=int(HaveAxe)
+
+            VariableThings=f.readline()
+            VariableThings=int(VariableThings)
+            
+            stone=f.readline()
+            stone=int(stone)
 # focus
         if WhatFocused == 0:
             print("")
@@ -533,6 +601,71 @@ if wantToStart == "y":
             print("")
             print("Your focus is on: sawmil")
             print("Sawmil: My current price multiplier is: ", WoodCostMultiplier, "Use 'si' to interact with me.")
+    #mine
+        if WhatFocused ==7:
+            print("")
+            print("Your focus is on: mine")
+            print("use 'ma' to go on mining adventue")
+            if Operation=="ma":
+                randomnumber1=random()
+                randomnumber2=random()
+                randomnumber3=random()
+                if randomnumber1>=0.90:
+                    stone1="diamond"
+                else:
+                    stone1="stone"
+
+                if randomnumber2>=0.90:
+                    stone2="diamond"
+                else:
+                    stone2="stone"
+
+                if randomnumber3>=0.90:
+                    stone3="diamond"
+                else:
+                    stone3="stone"
+                
+                maChoosing=input("What stone do you want to mine? 1/2/3: ")
+                if maChoosing=="1":
+                    print("You mined: ", stone1)
+                    if stone1=="diamond":
+                        VariableThings=VariableThings+1
+                    else:
+                        stone=stone+1
+
+                if maChoosing=="2":
+                    print("You mined: ", stone2)
+                    if stone2=="diamond":
+                        VariableThings=VariableThings+1
+                    else:
+                        stone=stone+1
+
+                if maChoosing=="3":
+                    print("You mined: ", stone3)
+                    if stone3=="diamond":
+                        VariableThings=VariableThings+1
+                    else:
+                        stone=stone+1                                  
+                                  
+        if WhatFocused==8:
+            print("Your focus is on: workshop")
+            print("use 'iw' to interact with workshop")
+            if Operation=="iw":
+                print("Workshop: do you want to sell all your diamonds and stone?")
+                YesOrNo=input("Y/N: ")
+                if YesOrNo=="N":
+                    print("Workshop: Goodbye! *you are not interacting with Workshop anymore")
+                elif YesOrNo=="Y":
+                    IncomeFromSelling=VariableThings*10+stone
+                    print("Workshop:You will get: ", IncomeFromSelling, "coins")
+                    Coins=Coins+IncomeFromSelling
+                    print("You now have: ", Coins, "coins")
+                    VariableThings=0
+                    stone=0
+                else:
+                    print("Workshop: What? *you are not interacting with Workshop anymore")
+
+
 #grow           
         if int(flower1Grow)<50:
             flower1Grow=int(flower1Grow)

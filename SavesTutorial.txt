@@ -14,4 +14,7 @@
 #12 line: HaveAxe (0/1)
 #13 line: SawmilPriceTimer (0/1/2/3/4)
 #14 line: wood cost multiplier (1/2/3/4)
+#15 line: havePickaxe(0/1)
+#16 line: VariableThings
+#17 line: stone
 #-------------------
