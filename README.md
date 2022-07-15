@@ -13,14 +13,7 @@ On kanapi64 there is full support please concider cheking that out!: https://git
 pip3 install pygame
 ```
 ```
-pip3 install sleep
-```
-```
-pip3 install os
-```
-```
-pip3 install random
-```
+
 first to install make sure you are in your home otherwise it wont work:
 
 ```
