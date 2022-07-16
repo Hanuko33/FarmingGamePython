@@ -8,11 +8,11 @@ On kanapi64 there is full support please concider cheking that out!: https://git
 
 
 #Tutorial of installation:
-*THIS GAME REQUIRE LIBS: pygame, sleep, os, random*
+*THIS GAME REQUIRES LIBS: pygame, sleep, os, random*
 ```
 pip3 install pygame
 ```
-```
+
 
 first to install make sure you are in your home otherwise it wont work:
 
