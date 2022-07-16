@@ -14,7 +14,7 @@ pip3 install pygame
 ```
 
 
-first to install make sure you are in your home otherwise it wont work:
+first to install make sure you are in your home otherwise it won't work:
 
 ```
 cd
@@ -46,7 +46,7 @@ cd /usr/bin
 after you cd in any of this files then create link inside of bin:
 
 ```
-ln -s $HOME/FarmingGamePython/FarmingGamePythony
+ln -s $HOME/FarmingGamePython/FarmingGamePython
 ```
 
 if you have any issues contact me
